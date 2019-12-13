@@ -5,14 +5,6 @@ const router = express.Router();
 router.get('/', (req, res) => {
     Projects.findProjects()
         .then(projects => {
-            // const newProjects = projects.map((i) => {
-            //     if (i.completed === 1) {
-            //         i.completed = true
-            //     } else {
-            //         i.completed = false
-            //     }
-            //     return newProjects
-            // })
             res.status(200).json(projects);
         })
         .catch(err => {
@@ -64,7 +56,7 @@ router.post('/resources', (req, res) => {
     const resourceData = req.body;
     Projects.addResource(resourceData)
         .then(resource => {
-            res.status(201).json(resource);
+            res.status(201).json(req.body);
         })
         .catch(err => {
             res.status(500).json({ message: 'Failed to create new resource' });
@@ -75,7 +67,7 @@ router.post('/tasks', (req, res) => {
     const taskData = req.body;
     Projects.addTask(taskData)
         .then(task => {
-            res.status(201).json(task);
+            res.status(201).json(req.body);
         })
         .catch(err => {
             res.status(500).json({ message: 'Failed to create new task' });

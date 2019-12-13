@@ -34,6 +34,7 @@ exports.up = function (knex) {
                 .onUpdate("CASCADE")
             tbl.string("taskDescription", 500)
                 .notNullable()
+                .unique()
             tbl.string('notes', 500)
             tbl.boolean('completed')
                 .notNullable()
