@@ -7,7 +7,8 @@ exports.up = function (knex) {
                 .notNullable()
             tbl.string('projectDescription', 500)
             tbl.boolean('completed')
-                .notNullable(false)
+                .default(false)
+                .notNullable()
         })
         .createTable("resources", tbl => {
             tbl.increments();
@@ -20,6 +21,7 @@ exports.up = function (knex) {
                 .inTable("projects")
                 .onDelete("CASCADE")
                 .onUpdate("CASCADE")
+            tbl.string('resourceDescription', 500)
         })
         .createTable("tasks", tbl => {
             tbl.increments()
