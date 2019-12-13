@@ -9,30 +9,48 @@ module.exports = {
     addTask
 }
 
-function findResources() {
-    return db('projects')
-}
-
-function addResource() {
-    return db('projects').where({ id })
-}
-
 function findProjects() {
     return db('projects')
+        .select()
+}
+
+function addProject(project) {
+    return db('projects')
+        .insert(project)
+        .then(ids => {
+            const [id] = ids;
+            return findById(id).first()
+        })
 
 }
 
-function addProject() {
-    return db('projects')
+function findResources() {
+    return db('resources')
+}
 
+function addResource(resource) {
+    return db('resources')
+        .insert(resource)
+        .then(ids => {
+            const [id] = ids;
+            return findById(id).first()
+        })
 }
 
 function findTasks(id) {
-    return db('projects')
+    return db('tasks')
 
+    // .select("projects.name", "projects.description", "t.id", "t.taskDescription", "t.notes", "t.completed")
+    // .join("tasks as t", "t.projectId", "projects.id")
+    // .where("t.projectId", id)
 }
 
-function addTask(id) {
-    return db('projects')
+function addTask(task) {
+    return db('tasks')
+        .insert(task)
+        .then(ids => {
+            const [id] = ids;
+            return findById(id).first()
+        })
 
 }
